@@ -1,0 +1,172 @@
+<?php echo $breadcrumb;?>
+<script type="text/javascript">
+function editFormPost(){
+FormPost('#submit-check',"<?=VPATH?>","<?=VPATH?>dashboard/checkportfolioedit",'addport_frm');
+}
+function addFormPost(){ 
+FormPost('#submit-check',"<?=VPATH?>","<?=VPATH?>dashboard/checkportfolio",'addport_frm');
+}
+
+</script>       
+<script src="<?=JS?>mycustom.js"></script>
+
+<div class="clearfix"></div>
+<section class="sec">
+<div class="container">
+  <div class="row">
+     <?php //echo $leftpanel;?> 
+    <div class="col-md-8 col-md-offset-2 col-sm-11 col-sm-offset-1 col-xs-12">                           
+    <div class="profile_right">
+	<a href="<?php echo base_url('dashboard/profile_professional');?>" class="pull-right btn btn-site"><?php echo __('dashboard_addportfolio_back_to_profile','Back to profile'); ?></a>
+    <h4 class="title-sm"><?php echo __('dashboard_addportfolio_add_portfolio','Add Portfolio'); ?></h4>			
+    <div class="whiteSec">
+    <div class="success alert-success alert" style="display:none"><?php echo __('dashboard_addportfolio_your_message_has_been_sent_successfully','Your message has been sent successfully.'); ?></div>    
+    <span id="agree_termsError" class="error-msg2" style="display:none"></span>
+        
+    <?php
+        $attributes = array('id' => 'addport_frm','class' => 'form-horizontal','role'=>'form','name'=>'addport_frm','onsubmit'=>"disable", 'enctype'=>'multipart/form-data');
+        echo form_open('', $attributes);
+    ?>  
+    
+	<input type="hidden" readonly="readonly" class="form-control"  value="<?php if($this->uri->segment(3)){echo $this->uri->segment(3);} ?>" name="pid" id="pid" />
+    <div class="form-group">
+    	<div class="col-xs-12">
+    	<label><?php echo __('dashboard_addportfolio_title','Title'); ?> : </label>
+        <input type="text" class="form-control" size="30" value="<?php if($this->uri->segment(3)){echo $title;} ?>" name="title" id="title" tooltipText="Enter Title" /> 
+        
+    <span id="titleError" class="error-msg2"></span>
+    </div>
+    </div>
+    <div class="form-group">
+    	<div class="col-xs-12">
+    <label><?php echo __('dashboard_addportfolio_description','Description'); ?> :</label>
+        <textarea class="form-control" name="description" id="description" rows="3" style="min-width:56%" tooltipText="Enter Description" ><?php if($this->uri->segment(3)){echo $description;} ?></textarea>
+    
+    <span id="descriptionError" class="error-msg2"></span>
+    </div>
+    </div>
+    
+    <div class="form-group">
+        <div class="col-xs-12">
+        <label><?php echo __('dashboard_addportfolio_tags','Tags'); ?></label>
+            <input type="text" class="form-control" size="30" name="tags"  id="tags" value="<?php if($this->uri->segment(3)){echo $tags;} ?>" required tooltipText="Enter Tags" /> 
+            <span id="tagsError" class="error-msg2"></span>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <div class="col-xs-12">
+            <label><?php echo __('dashboard_addportfolio_url','URL'); ?></label>
+            <input type="text" class="form-control" size="30" name="url" id="url"  value="<?php if($this->uri->segment(3)){echo $url;} ?>" required tooltipText="Enter URL" />  
+            <span id="urlError" class="error-msg2"></span>
+        </div>
+    </div>
+    
+    <div class="form-group">
+    <div class="col-xs-12">
+    <label><?php echo __('dashboard_addportfolio_portfolio','Portfolio'); ?> :</label>
+    <div class="clearfix"></div>
+    <img id="uploded_img" src="<?php if($this->uri->segment(3)){echo VPATH."assets/portfolio/".$thumb_img;} ?>" alt="" class="img-thumbnail"/> 
+    <span id="img_name"> <?php if($this->uri->segment(3)){echo"(". $thumb_img .")";} ?> </span>
+    <div class="masg2">        
+    <div class="input-group" style="margin-bottom:8px">
+        <label class="input-group-btn">
+            <span class="btn btn-grey">
+                <?php echo __('dashboard_addportfolio_browse','Browse'); ?>&hellip; <input type="file" class="form-control" size="30" name="userfile" id="userfile" onchange="movefile(this)" style="display: none;" multiple>
+            </span>
+        </label>
+        <input type="text" class="form-control" readonly>
+    </div>       
+       
+    </div>
+    <img id="loading" src="<?php echo VPATH;?>assets/images/loading.gif" style="display:none;margin:10px;">
+    <span style="color:red;float:left;width:100%;">
+     <?php echo __('dashboard_addportfolio_file_must_formated_in','File must be zip ,jpg ,jpeg ,gif ,png ,doc ,docx ,pdf ,xls ,xlsx ,txt.'); ?></span>
+    </div>
+    </div>
+    <div class="masg3" >
+    <input class="btn btn-site" type="button" id="submit-check" <?php if($this->uri->segment(3)){echo 'onclick="editFormPost()"';}else{echo 'onclick="addFormPost()"';} ?> value="<?php echo __('dashboard_addportfolio_submit','Submit'); ?>" />    
+    </div>
+          
+        
+    </div>
+
+    </div>
+    </div>
+	</form>
+	</div>                       
+                      
+<div class="clearfix"></div>
+<?php 
+  
+  if(isset($ad_page)){ 
+    $type=$this->auto_model->getFeild("type","advartise","","",array("page_name"=>$ad_page,"add_pos"=>"M"));
+  if($type=='A') 
+  {
+   $code=$this->auto_model->getFeild("advertise_code","advartise","","",array("page_name"=>$ad_page,"add_pos"=>"M")); 
+  }
+  else
+  {
+   $image=$this->auto_model->getFeild("banner_image","advartise","","",array("page_name"=>$ad_page,"add_pos"=>"M"));
+    $url=$this->auto_model->getFeild("banner_url","advartise","","",array("page_name"=>$ad_page,"add_pos"=>"M")); 
+  }
+        
+      if($type=='A'&& $code!=""){ 
+?>
+<div class="addbox2">
+ <?php 
+   echo $code;
+ ?>
+</div>                      
+<?php                      
+      }
+   elseif($type=='B'&& $image!="")
+   {
+  ?>
+        <div class="addbox2">
+        <a href="<?php echo $url;?>" target="_blank"><img src="<?=ASSETS?>ad_image/<?php echo $image;?>" alt="" title="" /></a>
+        </div>
+        <?php  
+ }
+  }
+
+?>
+<div class="clearfix"></div>
+</div>                               
+</section>		 
+<?php 
+ $script_url="";
+ if($this->uri->segment(3)){
+   $script_url=VPATH."dashboard/uploadportfolio_edit/";
+ } 
+ else{ 
+   $script_url=VPATH."dashboard/uploadportfolio/";
+ }
+
+?>
+
+<script>
+   
+ function movefile(evt){ 
+     
+    var n=document.getElementById('userfile').files[0];         
+      // $("#loading").show();
+        $.ajaxFileUpload({
+            url:'<?php echo $script_url;?>',
+            secureuri:false,
+            fileElementId:'userfile',
+            dataType: 'json',
+            data:{name:n.name, id:$("#pid").val()},
+            success: function (data){
+                $("#pid").val(data.pid);
+                $("#img_name").text("("+data.msg+")");
+                $("#uploded_img").attr("src","<?php echo VPATH."assets/portfolio/"?>"+data.msg);
+                
+                
+		//$("#loading").hide();
+               // window.location.href="<?php echo VPATH;?>dashboard/editportfolio";                
+            }
+    });
+     
+  }    
+	</script>	

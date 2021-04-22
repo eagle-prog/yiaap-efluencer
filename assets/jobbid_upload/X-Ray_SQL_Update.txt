@@ -1,0 +1,57 @@
+
+.....................................................................................................................24.01.2017............................................................................................................
+
+CREATE TABLE  `xray`.`pro_homecms_banner_heading` (
+`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`banner_title` TEXT NOT NULL ,
+`status` ENUM(  'Y',  'N' ) NOT NULL ,
+`date` DATE NOT NULL
+) ENGINE = MYISAM ;
+
+
+CREATE TABLE  `xray`.`pro_homecms_overview` (
+`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`row_txt` TEXT NOT NULL ,
+`row_img` VARCHAR( 255 ) NOT NULL ,
+`status` ENUM(  'Y',  'N' ) NOT NULL ,
+`date` DATE NOT NULL
+) ENGINE = MYISAM ;
+
+
+
+CREATE TABLE  `xray`.`pro_homecms_used_heading` (
+`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`heading_txt` TEXT NOT NULL ,
+`date` DATE NOT NULL ,
+`status` ENUM(  "Y",  "N" ) NOT NULL
+) ENGINE = MYISAM ;
+
+
+
+CREATE TABLE  `xray`.`pro_homecms_uses_dtls` (
+`id` INT NOT NULL ,
+`heading` VARCHAR( 255 ) NOT NULL ,
+`text` TEXT NOT NULL ,
+`url` VARCHAR( 255 ) NOT NULL ,
+`sataus` ENUM(  'Y',  'N' ) NOT NULL ,
+`date` DATE NOT NULL
+) ENGINE = MYISAM ;
+
+
+ALTER TABLE  `pro_homecms_uses_dtls` ADD  `vdo_dtls` TEXT NOT NULL AFTER  `url`
+
+
+
+CREATE TABLE  `xray`.`pro_homecms_features` (
+`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`header` VARCHAR( 255 ) NOT NULL ,
+`text` TEXT NOT NULL ,
+`logo` VARCHAR( 255 ) NOT NULL ,
+`status` ENUM(  'Y',  'N' ) NOT NULL ,
+`date` DATE NOT NULL
+) ENGINE = MYISAM ;
+
+
+.....................................................................................................................25.01.2017............................................................................................................
+
+ALTER TABLE  `pro_settings` ADD  `contact_phone_help` VARCHAR( 255 ) NOT NULL AFTER  `contact_phone`

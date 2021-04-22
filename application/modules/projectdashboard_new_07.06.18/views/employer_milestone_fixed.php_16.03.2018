@@ -1,0 +1,161 @@
+<script>
+    $(window).load(function(){
+      $("#sticky_panel").sticky({ topSpacing: 105 , bottomSpacing: 485});
+    });
+</script>
+<section class="sec" style="min-height:600px">
+<div class="container-fluid">
+<div class="row">
+<aside class="col-md-9 col-sm-8 col-xs-12">
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+<?php $this->load->view('employer_tab'); ?>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content whiteBg" style="padding: 15px">
+
+<div role="tabpanel" class="tab-pane active" id="overview">
+
+<h4>Milestones</h4>
+
+ <!-- working area -->
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
+				<tr>
+				<th><?php echo __('projectdashboard_milestone_no','Milestone No'); ?></th>
+				<th><?php echo __('projectdashboard_milestone_amount','Amount'); ?>(<?php echo CURRENCY;?>)</th> 
+				<th><?php echo __('projectdashboard_milestone_date','Date'); ?></th>
+				<th><?php echo __('projectdashboard_milestone_project','Project'); ?></th>
+				<th><?php echo __('projectdashboard_milestone_title','Title'); ?></th>
+				<th><?php echo __('projectdashboard_milestone_payment_request','Payment Request'); ?></th>
+				</tr>
+			</thead>
+			<tbody>
+			<tr>
+			<?php 
+			if(count($set_milestone_list)>0){  
+				foreach($set_milestone_list as $row){
+				$is_escrowed = 0;
+				$escrow_row = $this->db->where('milestone_id', $row['id'])->get('escrow_new')->row_array();
+				if(!empty($escrow_row)){
+					$is_escrowed = 1;
+				}					
+
+			?>
+			</tr>
+			<tr>
+				<td><?php echo $row['milestone_no']; ?> </td>
+				<td><?php echo CURRENCY;?> <?php echo $row['amount'];?></td>
+				<td class="width10per"><?php echo $row['mpdate'] != '0000-00-00' ? date("d M, Y", strtotime($row['mpdate'])) : 'At Project Ends' ;?></td>
+				<td>
+				<?php
+				$project_name=$this->auto_model->getFeild("title","projects","project_id",$row['project_id']);
+				echo $project_name;
+				?>
+				</td>
+				<td><?php echo $row['title'];?></td>
+				
+				<?php if($row['client_approval']=='N'){ ?>
+
+				<td><?php echo __('projectdashboard_milestone_not_approved_yet','Not Approved Yet'); ?></td>
+				
+				<?php } elseif($row['client_approval']=='D') { ?>
+
+				<td><?php echo __('projectdashboard_milestone_mile_stone_decline','Milestone Declined'); ?></td>
+				
+				<?php }else{ if($row['release_payment']=='R'){ ?>
+				
+				<td><a href="<?php echo base_url('/dashboard/invoice/'.$row['invoice_id'].'/'.'F')?>"><?php echo __('projectdashboard_milestone_invoice','Invoice'); ?></a> | <a href="javascript:void(0);" onclick="milestone_action('<?php echo VPATH;?>myfinance/releaseFund/<?php echo $row['id'];?>/A/?next=projectdashboard_new/employer/milestone/<?php echo $project_id; ?>', 'release')"><?php echo __('projectdashboard_milestone_relese','Release'); ?></a> | <a href="javascript:void(0);" onclick="milestone_action('<?php echo VPATH;?>myfinance/cancelpayment/<?php echo $row['id'];?>', 'cancel')"><?php echo __('projectdashboard_milestone_cancel','Cancel'); ?></a>
+				
+				<?php if(($is_escrowed == 1) && $escrow_row['status'] == 'P'){ ?>
+					| <a onclick="milestone_action('<?php echo VPATH;?>myfinance/disputeMilestone/<?php echo $row['id'];?>/<?php echo $row['project_id']; ?>', 'dispute')" href="javascript:void(0);"><?php echo __('projectdashboard_milestone_dispute','Dispute'); ?></a>
+				<?php } ?>
+				</td>
+					<?php 
+					}else if($row['release_payment'] == 'N'){
+						echo '<td>'.__('projectdashboard_milestone_not_requested_yet','Not Requested Yet').'</td>';
+					} else if($row['release_payment'] == 'D'){
+						echo '<td>'.__('projectdashboard_milestone_dispute','Disputed').' | <a href="'.base_url('projectdashboard/dispute_room/'.$row['id'].'/'.$row['project_id']).'">'.__('projectdashboard_milestone_view','View').'</a></td>';
+					} else if($row['release_payment'] == 'C'){
+						echo '<td>'.__('projectdashboard_milestone_cancelled','Cancelled').'</td>';
+					}else if($row['release_payment'] == 'Y'){
+						echo '<td> <a href="'.base_url('/dashboard/invoice/'.$row['invoice_id'].'/'.'F').'" target="_blank">'.__('projectdashboard_milestone_invoice','Invoice').'</a> | '.__('projectdashboard_milestone_paid','Paid').' </td>';
+					} 
+
+				}  
+				?>
+			</tr>
+			<?php
+			}
+
+
+			}else{ ?>
+			<tr><td colspan="6" align="center"><?php echo __('projectdashboard_milestone_no_records_found','No Records Found') ?></td></tr>
+
+			<?php } ?>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+</div>
+</aside>
+
+
+<aside class="col-md-3 col-sm-4 col-xs-12">
+<?php $this->load->view('right-section');?>
+</aside>
+
+</div>
+</div>
+</section>
+
+<!-- modals -->
+<div id="infoModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" onclick="$('#infoModal').modal('hide');">&times;</button>
+      </div>
+      <div class="modal-body" id="infoContent">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('#infoModal').modal('hide');"><?php echo __('projectdashboard_milestone_close',''); ?></button>
+        <a type="button" class="btn btn-primary" id="release-action-btn" style="display:none"><?php echo __('projectdashboard_milestone_accept','Accept'); ?></a>
+        <a type="button" class="btn btn-primary" id="cancel-action-btn" style="display:none"><?php echo __('projectdashboard_milestone_cancel','Cancel'); ?></a>
+        <a type="button" class="btn btn-primary" id="dispute-action-btn" style="display:none"><?php echo __('projectdashboard_milestone_dispute','Dispute'); ?></a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function milestone_action(link, action){
+	if(action == 'release'){
+		$('#release-action-btn').attr('href', link);
+		$('#release-action-btn').show();
+		$('#cancel-action-btn').hide();
+		$('#dispute-action-btn').hide();
+		$('#infoContent').html('<?php echo __('projectdashboard_milestone_are_you_sure_to_relese_payment','Are you sure to release payment ?'); ?>');
+	}else if(action == 'cancel'){
+		$('#cancel-action-btn').attr('href', link);
+		$('#cancel-action-btn').show();
+		$('#release-action-btn').hide();
+		$('#dispute-action-btn').hide();
+		$('#infoContent').html('<?php echo __('projectdashboard_milestone_are_you_sure_to_cancel_payment','Are you sure to cancel payment ?'); ?>');
+	}else if(action == 'dispute'){
+		$('#dispute-action-btn').attr('href', link);
+		$('#dispute-action-btn').show();
+		$('#release-action-btn').hide();
+		$('#cancel-action-btn').hide();
+		$('#infoContent').html('<?php echo __('projectdashboard_milestone_are_you_sure_to_dispute_payment','Are you sure to dispute payment ?'); ?>');
+	}
+	$('#infoModal').modal('show');
+}
+</script>

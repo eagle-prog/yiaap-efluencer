@@ -1,0 +1,45 @@
+version: "3"
+services:
+  www:
+    container_name: efluencer-workspace
+    build: ./docker
+    ports:
+      - "8002:80"
+      - "443:443"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+      - ./docker/php/apache2.conf:/etc/apache2/apache2.conf
+      - ./docker/php/000-default.conf:/etc/apache2/sites-available/000-default.conf
+      - ./docker/php/default-ssl.conf:/etc/apache2/sites-available/default-ssl.conf
+    links:
+      - db
+    networks:
+      - default
+  db:
+    container_name: efluencer-mysql
+    image: mysql:5.6.47
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci','--default-authentication-plugin=mysql_native_password']
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: vipleyoc_edesk
+      MYSQL_USER: vipleyoc_edesk_u
+      MYSQL_PASSWORD: ro!*^io^sJep
+      MYSQL_ROOT_PASSWORD: test
+    volumes:
+      - ./docker/sql:/docker-entrypoint-initdb.d
+      - ~/.efluencer-dev/mysql_data:/var/lib/mysql
+    networks:
+      - default
+  phpmyadmin:
+    container_name: efluencer-phpmyadmin
+    image: phpmyadmin/phpmyadmin:4.8
+    links:
+      - db:db
+    ports:
+      - 8000:80
+    environment:
+      MYSQL_USER: user
+      MYSQL_PASSWORD: test
+      MYSQL_ROOT_PASSWORD: test

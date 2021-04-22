@@ -1,0 +1,9 @@
+.idea
+application/ECnote
+!application/ECnote/.htaccess
+/.htaccess
+error_log
+
+
+/edeskadmin/error_log
+.well-known.zip

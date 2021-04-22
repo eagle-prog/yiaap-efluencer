@@ -1,0 +1,31 @@
+<?php
+$lang ['hello'] = 'Hello';
+$lang ['Fund_added_by_admin'] = 'Fund added by admin';
+$lang ['Featured_Contest'] = 'Featured Contest';
+$lang ['Sealed_Contest'] = 'Sealed Contest';
+$lang ['Contest_Awarded_To_Entry'] = 'Contest Awarded To Entry';
+$lang ['Contest_Awarded'] = 'Contest Awarded';
+$lang ['Project_payment_to_escrow'] = 'Project payment to escrow';
+$lang ['Project_payment'] = 'Project payment';
+$lang ['Project_fund_refunded'] = 'Project fund refunded';
+$lang ['Project_fund_refund_received'] = 'Project refund received';
+$lang ['Bid_Purchase'] = 'Bid Purchase';
+$lang ['Bonus_given'] = 'Bonus given';
+$lang ['Bonus_received'] = 'Bonus received';
+$lang ['Membership_upgrade'] = 'Membership upgrade';
+$lang ['Fund_added_through_paypal'] = 'Fund added through paypal';
+$lang ['Fund_withdraw'] = 'Fund withdraw';
+$lang ['Freelancer_payment_through_escrow_wallet'] = 'Freelancer payment through escrow wallet';
+$lang ['Commission_deducted'] = 'Commission deducted';
+$lang ['Commission_received'] = 'Commission received';
+$lang ['Project_payment_to_freelancer'] = 'Project payment to freelancer';
+$lang ['Project_payment_received'] = 'Project payment received';
+$lang ['Hourly_project_fund_added_to_escrow'] = 'Hourly project fund added to escrow';
+$lang ['Hourly_project_payment_through_escrow'] = 'Hourly project payment through escrow';
+$lang ['Project_featured_fee'] = 'Projekti "Project featured fee';
+$lang ['Project_featured_fee_received'] = 'Project featured fee received';
+$lang ['Disputed_Project_payment_received'] = 'Disputed Project payment received';
+$lang ['Disputed_Project_payment'] = 'Disputed Project payment';
+$lang ['commission_paid'] = 'Commission paid';
+$lang ['Project_fund_deposited'] = 'Project fund deposited';
+?>

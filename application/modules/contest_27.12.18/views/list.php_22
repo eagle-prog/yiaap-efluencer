@@ -1,0 +1,67 @@
+<section class="breadcrumb-classic">
+  <div class="container">
+    <div class="row">
+      <aside class="col-sm-6 col-xs-12">
+        <h3>FIND CONTEST</h3>
+      </aside>
+      <aside class="col-sm-6 col-xs-12">
+        <ol class="breadcrumb text-right">
+          <li><a href="<?php echo base_url('dashboard/dashboard_new');?>">Home</a></li>
+          <li class="active">Contest</li>
+        </ol>
+      </aside>
+    </div>
+  </div>
+</section>
+<section class="sec">
+  <div class="container">
+    <div class="row">
+      <aside class="col-md-3 col-sm-12 col-xs-12">
+        <div class="left_sidebar">
+          <h4 class="title-sm">Category</h4>
+          <ul class="list-group scroll-bar">
+            <?php if(count($categories) > 0){foreach($categories as $k => $v){ ?>
+            <li><a href="<?php echo base_url('contest/browse/'.$v['cat_id'].'/'.seo_string($v['cat_name'])); ?>"><?php echo $v['cat_name']; ?></a></li>
+            <?php } } ?>
+          </ul>
+        </div>
+      </aside>
+      <aside class="col-md-9 col-sm-12 col-xs-12">
+        <div class="topcontrol_box" style="display:none">
+          <div class="topcbott"></div>
+        </div>
+        <h4 class="title-sm">&nbsp;</h4>
+        <div class="searchbox">
+          <form>
+            <div class="input-group input-group-lg">
+              <input type="text" class="form-control" placeholder="Search job by title..." name="term" value="<?php echo !empty($srch['term']) ? $srch['term'] : ''; ?>">
+              <span class="input-group-addon" id="basic-addon1">
+              <button type="submit" class="btn btn-site"><i class="zmdi zmdi-search"></i> Search</button>
+              </span> </div>
+          </form>
+          <p class="text-right" style="display:none;"><a style="cursor: pointer;">Advanced Search</a></p>
+        </div>
+        <div class="listing">
+          <?php if(count($contest_list) > 0){foreach($contest_list as $k => $v){ ?>
+          <div class="listBox">
+            <p class="designation"><a href="<?php echo base_url('contest/contest_detail/'.$v['contest_id']); ?>"><?php echo $v['title']; ?></a></p>
+            <div class="pull-left"><p> <b><?php echo $v['total_entries'];?></b> Entries</p></div>
+            <div class="pull-right"><span class="label-tag label-warning"><i class="zmdi zmdi-star"></i> FEATURED</span> <span class="label-tag label-info"><i class="zmdi zmdi-shield-security"></i> SEALED</span> <span class="label-tag label-success"><i class="zmdi zmdi-thumb-up"></i> GURANTEED</span></div>
+            <div class="clearfix"></div>
+            <p><?php echo strlen($v['description']) > 200 ? substr($v['description'], 0, 200).'...' : $v['description']; ?></p>
+            <ul class="skills">
+              <li>Skills: </li>
+              <?php if(count($v['skills']) > 0){foreach($v['skills'] as $skill){ ?>
+              <li><a href="javascript:void(0);"><?php echo $skill['skill_name']; ?></a> </li>
+              <?php } } ?>
+            </ul>
+            <p> <span class="border-tag border-tag-success">Started: <?php echo date('d M , Y', strtotime($v['posted'])); ?></span> &nbsp; <span class="border-tag border-tag-danger">End : <?php echo date('d M , Y', strtotime($v['ended'])); ?></span> <a href="<?php echo base_url('contest/contest_detail/'.$v['contest_id']); ?>" class="btn btn-site btn-sm pull-right">View Contest</a> </p>
+          </div>
+          <?php } }else{  ?>
+          <p>Sorry , No Results Found</p>
+          <?php  } ?>
+          <?php echo $links; ?> </div>
+      </aside>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,12 @@
+ <td><?php switch($value['email_verfiedcase 'Y':
+									  echo 'Yes';
+									  break;
+								case 'N':
+										echo 'No';
+										break;
+								default:
+									echo 'No';
+										break;    <th style="text-align:center;">Action</th>
+								} ?>
+							</td>
+                                                       <td><?php echo !empty($value['registered_on'])? $value['registered_on']:''; ?></td>
