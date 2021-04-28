@@ -24,10 +24,10 @@ $lang = $this->session->userdata('lang');
                     <h4>efluencer</h4>
                     <ul class="foot-nav">
                         <li><a href="<?= VPATH ?>information/info/about_us/"
-                               <? if ($current_page == "about_us"){ ?>id="current"<? } ?>><?php echo __('about_us', 'About Us'); ?></a>
+                               <?php if ($current_page == "about_us"){ ?>id="current"<?php } ?>><?php echo __('about_us', 'About Us'); ?></a>
                         </li>
                         <li><a href="<?php echo VPATH; ?>knowledgebase/"
-                               <? if ($current_page == "knowledge_base"){ ?>id="current"<? } ?>><?php echo __('success_tips', 'Success Tips'); ?></a>
+                               <?php if ($current_page == "knowledge_base"){ ?>id="current"<?php } ?>><?php echo __('success_tips', 'Success Tips'); ?></a>
                         </li>
                       <?php foreach ($popular as $vals) { ?>
                         <?php if ($vals->faq == 'Y') { ?>
@@ -376,7 +376,7 @@ if ($current_page == 'editprofile_professional' || $current_page == 'postjob' ||
   if ($current_page != 'postjob') {
     ?>
       <!--<script type="text/javascript" src="<?php echo JS; ?>jquery.min.js"></script>-->
-  <? } ?>
+  <?php } ?>
     <script type="text/javascript" src="<?php echo JS; ?>ajaxfileupload.js"></script>
   <?php
 }

@@ -155,10 +155,10 @@ if ($unread_msg == 0) {
                                     </ul>
                                 </li>
 
-                                <!--<li><a href="<?= VPATH ?>postjob" <? if ($current_page == "postjob") { ?> id="current"<? } ?>><?php echo strtoupper(__('post_job', 'POST JOB')); ?></a></li> -->
+                                <!--<li><a href="<?= VPATH ?>postjob" <?php if ($current_page == "postjob") { ?> id="current"<?php } ?>><?php echo strtoupper(__('post_job', 'POST JOB')); ?></a></li> -->
                             <?php }
                           } else {/*  ?>
-			<li><a href="<?=VPATH?>login?refer=postjob/" <? if($current_page=="postjob"){?> id="current"<? }?>>POST JOB</a></li>
+			<li><a href="<?=VPATH?>login?refer=postjob/" <?php if($current_page=="postjob"){?> id="current"<?php }?>>POST JOB</a></li>
 		<?php */
                           } ?>
                           <?php if ($this->session->userdata('user')) {
@@ -167,20 +167,20 @@ if ($unread_msg == 0) {
                             if ($user[0]->account_type == 'E') {
                               ?>
                                 <li><a class="text-btn-menu" style="font-weight: 400"
-                                       href="<?= VPATH ?>findtalents/" <? if ($current_page == "findtalent") { ?> id="current"<? } ?>>FIND
+                                       href="<?= VPATH ?>findtalents/" <?php if ($current_page == "findtalent") { ?> id="current"<?php } ?>>FIND
                                         INFLUENCER</a></li>
                                 <!--                <li><a class="text-btn-menu" href="--><?//=VPATH
                               ?><!--findjob/">Browse Jobs</a></li>-->
                             <?php }
                           } else { ?>
                               <li><a class="text-btn-menu"
-                                     href="<?= VPATH ?>findtalents/" <? if ($current_page == "findtalent") { ?> id="current"<? } ?>>Search
+                                     href="<?= VPATH ?>findtalents/" <?php if ($current_page == "findtalent") { ?> id="current"<?php } ?>>Search
                                       eFluencers</a></li>
                               <li><a class="text-btn-menu" href="<?= VPATH ?>findjob/">Find Jobs</a></li>
                           <?php } ?>
                           <?php if ($this->session->userdata('user')) { ?>
                               <li><a href="<?= VPATH ?>message/browse"
-                                     <? if ($current_page == "membership"){ ?>id="current"<? } ?>>Messages</a><span
+                                     <?php if ($current_page == "membership"){ ?>id="current"<?php } ?>>Messages</a><span
                                           class="badge" id="msg_count"
                                           style="position: absolute;top: 0px;right: 0; <?php echo $style; ?>"><?php echo $unread_msg; ?></span>
                               </li>
@@ -196,14 +196,14 @@ if ($unread_msg == 0) {
                           ?>
                             <ul class="nav navbar-nav">
                                 <li class="profile-imgEcnLi"><a href="<?= VPATH ?>affiliate/dashboard/"
-                                                                <? if ($current_page == "dashboard"){ ?>id="current"<? } ?>><i
+                                                                <?php if ($current_page == "dashboard"){ ?>id="current"<?php } ?>><i
                                                 class="fa fa-user" style="font-size:20px" id="head_noti_profile"></i>&nbsp;</a>
                                     <ul>
                                         <li><a href="<?= VPATH ?>affiliate/dashboard/"
-                                               <? if ($current_page == "dashboard"){ ?>id="current"<? } ?>><?php echo strtoupper(__('dashboard', 'DASHBOARD')); ?></a>
+                                               <?php if ($current_page == "dashboard"){ ?>id="current"<?php } ?>><?php echo strtoupper(__('dashboard', 'DASHBOARD')); ?></a>
                                         </li>
                                         <li><a href="<?= VPATH ?>affiliate/logout/"
-                                               <? if ($current_page == "logout"){ ?>id="current"<? } ?>><?php echo strtoupper(__('logout', 'LOGOUT')); ?></a>
+                                               <?php if ($current_page == "logout"){ ?>id="current"<?php } ?>><?php echo strtoupper(__('logout', 'LOGOUT')); ?></a>
                                         </li>
                                     </ul>
                                 </li>
@@ -241,7 +241,7 @@ if ($unread_msg == 0) {
                                     </a></li>
 
                                 <li class="profile-imgEcnLi hidden"><a href="javascript:void(0)"
-                                                                       <? if ($current_page == "dashboard"){ ?>id="current"<? } ?>
+                                                                       <?php if ($current_page == "dashboard"){ ?>id="current"<?php } ?>
                                                                        class="Noback profile-imgEcn hidden-xs">
                                         <i class="zmdi zmdi-account profile-imgEcn" style="font-size:20px"
                                            id="head_noti_profile"></i>&nbsp;</a></li>
@@ -296,7 +296,7 @@ if ($unread_msg == 0) {
                               if (!$this->session->userdata('user_affiliate')) {
                                 ?>
                                   <a class="text-btn" href="<?= VPATH ?>affiliate/"
-                                     <? if ($current_page == "signup"){ ?>id="current"<? } ?>> Sign Up</a>
+                                     <?php if ($current_page == "signup"){ ?>id="current"<?php } ?>> Sign Up</a>
                                   <a class="text-btn" href="<?= VPATH ?>affiliate/"> Sign In</a>
                                 <?php
                               }
@@ -307,7 +307,7 @@ if ($unread_msg == 0) {
                                 ?>
                                   <a class="text-btn" href="<?= VPATH ?>login/">Sign In</a><span class="hidden-xs">&nbsp;&nbsp;</span>
                                   <a class="text-btn" href="<?= VPATH ?>signup/"
-                                     <? if ($current_page == "signup"){ ?>id="current"<? } ?>>Sign Up</a>
+                                     <?php if ($current_page == "signup"){ ?>id="current"<?php } ?>>Sign Up</a>
                               <?php }
                             } ?>
                               <a class="btn btn-site post-job " href="<?= VPATH ?>postjob/">Post Job</a>
@@ -434,7 +434,7 @@ if ($this->session->userdata('user')) {
                 <span class="sidebar-close-alt">&times;</span></div>
         </div>
     </div>
-<? } ?>
+<?php } ?>
 <?php
 if ($this->session->userdata('user')) {
   ?>
