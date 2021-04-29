@@ -220,7 +220,7 @@ class Login_model extends BaseModel
 
           $data = [
             'ip'        => $_SERVER['REMOTE_ADDR'],
-            'ldate'     => 'NOW()',
+            'ldate'     => date('Y-m-d H:i:s'),
             'auth_code' => $auth_code
           ];
           $this->updateuser($data, $user->user_id);
