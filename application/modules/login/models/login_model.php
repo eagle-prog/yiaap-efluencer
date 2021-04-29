@@ -220,9 +220,9 @@ class Login_model extends BaseModel
 
           $data = [
             'ip'        => $_SERVER['REMOTE_ADDR'],
-            'ldate'     => date('Y-m-d H:i:s'),
             'auth_code' => $auth_code
           ];
+          $this->db->set('ldate', 'NOW()', FALSE);
           $this->updateuser($data, $user->user_id);
           $this->auto_model->send_email($admin_email, $user->email, "auth_confirm", $data_parse);
         }
