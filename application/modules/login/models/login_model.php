@@ -271,7 +271,7 @@ class Login_model extends BaseModel
       $result = $query->result();
 
       if ($query->num_rows() == 1) {
-        $diff = floor((time() - strtotime($result->ldate)) / 60);
+        $diff = floor((time() - strtotime($result[0]->ldate)) / 60);
         if ($diff > AUTH_CODE_EXPIRATION) {
           $msg['status'] = 'FAIL';
           $msg['errors'][$i]['id'] = 'confirmation_code';
