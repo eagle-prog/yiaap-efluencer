@@ -30,6 +30,8 @@
 
 */
 
+date_default_timezone_set("America/Santiago");
+
 //$config['base_url']	= URL;
 
 $config['base_url'] = URL;
@@ -712,7 +714,6 @@ $config['rewrite_short_tags'] = FALSE;
 */
 
 $config['proxy_ips'] = '';
-
 
 
 
