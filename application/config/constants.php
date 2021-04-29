@@ -48,6 +48,7 @@ define('PDF_ICON',		IMAGE.'pdf_icon.png');
 define('DOC_ICON',		IMAGE.'doc_icon.png');
 define('TXT_ICON',		IMAGE.'txt_icon.png');
 define('COMMON_ICON',		IMAGE.'common_file.png');
+define('AUTH_CODE_EXPIRATION', 300); // Authentication code expiration: 5 minutes
 
 /* FB **/
 

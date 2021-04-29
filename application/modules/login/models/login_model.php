@@ -271,17 +271,23 @@ class Login_model extends BaseModel
       $result = $query->result();
 
       if ($query->num_rows() == 1) {
-        $msg['status'] = "OK";
-        if ($this->input->post('refer') != '') {
-          $msg['location'] = VPATH . $this->input->post('refer');
+        $diff = floor((time() - strtotime($result->ldate)) / 60);
+        if ($diff > AUTH_CODE_EXPIRATION) {
+          $msg['status'] = 'FAIL';
+          $msg['errors'][$i]['id'] = 'confirmation_code';
+          $msg['errors'][$i]['message'] = 'Confirmation code is expired!';
         } else {
-          $msg['location'] = VPATH . 'dashboard';
+          $msg['status'] = "OK";
+          if ($this->input->post('refer') != '') {
+            $msg['location'] = VPATH . $this->input->post('refer');
+          } else {
+            $msg['location'] = VPATH . 'dashboard';
+          }
+          $this->session->set_userdata('temp_user', null);
+          $this->session->set_userdata('user', $result);
+
+          setcookie('__ac_u', md5($sessionUser->user_id), time() + 2592000, '/');
         }
-        $this->session->set_userdata('temp_user', null);
-        $this->session->set_userdata('user', $result);
-
-        setcookie('__ac_u', md5($sessionUser->user_id), time() + 2592000, '/');
-
       } else {
         $msg['status'] = 'FAIL';
         $msg['errors'][$i]['id'] = 'confirmation_code';
